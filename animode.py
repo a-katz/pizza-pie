@@ -51,7 +51,7 @@ def addSnow(img) :
             ry = randint(1,h)
             rh = randint(2,5)
             for p in range(planes):
-                img[rx:rx+rw,ry:ry+rh,p] = 200
+                img[rx:rx+rw,ry:ry+rh,p] = 220
 
 def addRain(img) :
     (w,h,planes) = img.shape
@@ -91,13 +91,15 @@ if __name__ == "__main__" :
                 (ox, oy) = offsets[s]
                 addImage(img, s, x+ox, y+oy)
             if ((raining_or_snowing % 100) < 30):
-                pass
+                time.sleep(0.05)
             elif ((raining_or_snowing % 100) < 70):
                 addSnow(img)
             else :
                 addRain(img)
             cv2.imshow('camera', img)
-            cv.WaitKey(1)
+            ch = cv.WaitKey(1)
+            if (ch == 27) :
+                exit(0)
             time.sleep(0.1)
 
 
