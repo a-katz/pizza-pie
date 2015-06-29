@@ -61,22 +61,22 @@ class Animate:
 	    th = cv.GetTrackbarPos('thresh','camera')
 	    (ret, self.img) = self.capture.read()
 	    if (ret) :
-			self.red = cv2.cvtColor(self.img, cv2.COLOR_RGB2GRAY)
-			(ret,rbin) = cv2.threshold(self.red,th,255,cv2.THRESH_BINARY)
-			if (ret) :
-				self.redbin = rbin
-				saveBinary = np.copy(self.redbin)
-				blobs = self.getBlobs(self.redbin)
-				if (self.display == 1) :
-					self.outlineBlobs(saveBinary, blobs)
-					cv2.imshow('camera', saveBinary)
-				else :
-					self.outlineBlobs(self.img, blobs)
-					cv2.imshow('camera', self.img)
-				self.quitKey()
-        else :
+                self.red = cv2.cvtColor(self.img, cv2.COLOR_RGB2GRAY)
+                (ret,rbin) = cv2.threshold(self.red,th,255,cv2.THRESH_BINARY)
+                if (ret) :
+                    self.redbin = rbin
+                    saveBinary = np.copy(self.redbin)
+                    blobs = self.getBlobs(self.redbin)
+                    if (self.display == 1) :
+                        self.outlineBlobs(saveBinary, blobs)
+                        cv2.imshow('camera', saveBinary)
+                    else :
+                        self.outlineBlobs(self.img, blobs)
+                        cv2.imshow('camera', self.img)
+                    self.quitKey()
+            else :
         	print "Dropped Frame"
-        if (self.video) :
+            if (self.video) :
         	self.root.after(300, self.next_picture)
 
     def on_threshold(self,th):
@@ -113,14 +113,13 @@ class Animate:
     def getBlobs(self,binImg):  # Detect blobs.
         blobs = []
         ( contours, img2 ) = cv2.findContours(binImg,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
-	    minBlob = cv.GetTrackbarPos('minimum','camera')
-	    maxBlob = cv.GetTrackbarPos('maximum','camera')
+        minBlob = cv.GetTrackbarPos('minimum','camera')
+        maxBlob = cv.GetTrackbarPos('maximum','camera')
         for c in contours :
             (x,y,w,h) = cv2.boundingRect(c)
             # Filter for  minimum and maximum size
             if ( w > minBlob and h > minBlob and w < maxBlob and h < maxBlob ):
-                        blobs.append(( cv2.boundingRect(c),
-                                       binImg[x:x+w,y:y+h]))
+                blobs.append(( cv2.boundingRect(c), binImg[x:x+w,y:y+h]))
         return blobs
 
 
