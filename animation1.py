@@ -26,11 +26,11 @@ class Animate:
             self.display = 0
         else :
             self.display = 1
-        
+
     def makeControl(self) :
         self.frame = Frame(self.root)
         self.frame.pack()
-        self.button = Button(self.frame, 
+        self.button = Button(self.frame,
                              text="QUIT", fg="red",
                              command=self.frame.quit)
         self.button.pack(side=LEFT)
@@ -59,12 +59,20 @@ class Animate:
 
     def next_picture(self):
         th = cv.GetTrackbarPos('thresh','camera')
-        (ret, self.img) = self.capture.read()
+        (ret, temp) = self.capture.read()
+        src = temp
+        top = 20
+        bottom = 20
+        left = 20
+        right = 20
+        borderType = cv2.BORDER_CONSTANT
+        value = 0
+        self.img = cv2.copyMakeBorder(src, top, bottom, left, right, borderType, value)
         if (ret) :
             self.red = cv2.cvtColor(self.img, cv2.COLOR_RGB2GRAY)
             (ret,rbin) = cv2.threshold(self.red,th,255,cv2.THRESH_BINARY)
             if (ret) :
-                self.redbin = rbin
+                self.redbin = rbin #cv2.bitwise_not(rbin)
                 saveBinary = np.copy(self.redbin)
                 blobs = self.getBlobs(self.redbin)
                 if (self.display == 1) :
@@ -127,5 +135,5 @@ root = Tk()
 animateApp = Animate(root)
 root.mainloop()
 
-	
-	
+
+
