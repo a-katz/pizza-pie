@@ -1,0 +1,17 @@
+house tree person
+bus car car slide
+slide house
+slide person house
+person person person person
+house tree bus bus bus
+
+house.wav
+car.wav  (traffic)
+bus.wav (diesel engine)
+person.wav (laughter)
+slide.wav (kids laughing)
+tree.wav  (bird sounds)
+
+house.ani  (clouds)
+tree.ani  (birds + clouds)
+cat.ani   (pigeons)
