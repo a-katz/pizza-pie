@@ -1,0 +1,74 @@
+objectdictionary = {
+'house' : ('house.wav','house.ani'),
+'tree' : ('tree.wav','tree.ani'),
+'person' : ('person.wav',None),
+'car' : ('car.wav','car.ani'),
+'bus' : ('bus.wav','bus.ani'),
+'slide' : ('slide.wav',None),
+'cat' : (None,'cat.ani'),
+}
+def Audio(x,y):
+	pass
+def audio(o):
+	pass
+def animate(x,y,z):
+	pass
+def type(o):
+	pass
+def location(o):
+	pass
+def repetition(o):
+	return(1)
+def deanimate(o):
+	print 'turning off movie '+str(o)
+def silence(o):
+	print 'turning off audio '+str(o)
+	
+
+
+playing = {}
+f = open('test1','r')
+biglist = eval(f.read())
+for objects in biglist:
+	print objects
+	
+	#here we add new objects
+	for n in objects:
+		if (not (n in playing.keys())):
+			print 'adding ' + n[0] + ' object to list'
+			Repeat = repetition(type(n))
+			M = animate(type(n),location(n),Repeat)
+			S = Audio(audio(n),Repeat)
+			playing[n] = (objectdictionary[n[0]][1],objectdictionary[n[0]][0])
+	
+	#here we delete disappeared objects
+	for x in playing.keys():
+		if (not (x in objects)):
+			print 'removing ' + x[0] + ' object from list'
+			(M,S) = playing[x]
+			deanimate(M)
+			silence(S)
+			del playing[x]
+	print playing
+	
+
+#text of test to run
+#house tree person
+#bus car car slide
+#slide house cat
+#slide person house
+#person person person person
+#house tree bus bus bus
+
+#house.wav
+#car.wav  (traffic)
+#bus.wav (diesel engine)
+#person.wav (laughter)
+#slide.wav (kids laughing)
+#tree.wav  (bird sounds)
+
+#house.ani  (clouds)
+#tree.ani  (birds + clouds)
+#cat.ani   (pigeons)
+#car.ani   (street)
+#bus.ani   (street)
